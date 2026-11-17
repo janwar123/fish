@@ -785,76 +785,64 @@ plt.show()
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Number of epochs
-n = 50
+# Step 1: Number of Epochs
+N = 50
 
-# Initial position
+# Step 2: Starting Position
 x = 0
 y = 0
-z = 0
 
-# Store positions
+# Store Positions
 X = [x]
 Y = [y]
 
-# Simulate 50 movements
-for i in range(n):
+# Step 3: Simulate Movements
+for i in range(N):
 
-    # Horizontal movement
     move = np.random.choice(
         ['L', 'R', 'F', 'B'],
         p=[0.25, 0.35, 0.30, 0.10]
     )
 
     if move == 'L':
-        x -= 1
+        x = x - 1
+
     elif move == 'R':
-        x += 1
+        x = x + 1
+
     elif move == 'F':
-        y += 1
+        y = y + 1
+
     else:
-        y -= 1
+        y = y - 1
 
-    # Vertical movement
-    vertical = np.random.choice(
-        ['U', 'D'],
-        p=[0.80, 0.20]
-    )
-
-    if vertical == 'U':
-        z += 1
-    else:
-        z -= 1
-
-    # Store position
+    # Store New Position
     X.append(x)
     Y.append(y)
 
-# Display final position
-print("Final X Position:", x)
-print("Final Y Position:", y)
-print("Final Z Position:", z)
+# Step 4: Display Final Position
+print("Total Epochs =", N)
+print("Final X Position =", x)
+print("Final Y Position =", y)
+print("Final Location =", (x, y))
 
-print("Final Location:", (x, y, z))
-
-# Draw 2D graph
+# Step 5: Draw Graph
 plt.figure(figsize=(8, 6))
 
-plt.plot(X, Y, marker='o', markersize=3)
+plt.plot(X, Y, marker='o', markersize=3, color='blue')
 
-plt.scatter(0, 0, color='green', label='Starting Point')
-plt.scatter(x, y, color='red', label='Final Point')
+plt.scatter(X[0], Y[0], color='green', s=100, label='Start')
+plt.scatter(X[-1], Y[-1], color='red', s=100, label='End')
 
-# Show four quadrants
 plt.axhline(0, color='black')
 plt.axvline(0, color='black')
 
 plt.xlabel("X Position")
 plt.ylabel("Y Position")
-plt.title("Flying Object Movement After 50 Epochs")
+plt.title("Random Walk After 50 Epochs")
 
-plt.grid()
 plt.legend()
+plt.grid()
 plt.show()
 
 
