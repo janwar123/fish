@@ -1,0 +1,1242 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+############### Area of an irregular shape -1
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Step 1: Square Area
+A = 9 * 9
+
+# Step 2: Generate Random Points
+N = 1000
+
+x = np.random.rand(N) * 9
+y = np.random.rand(N) * 9
+
+# Step 3: Check Inside or Outside
+inside = y < (2 + 0.5*x + 0.04*x*x)  #boolean array akare store hocche 
+
+# Step 4: Count Inside Points
+M = 0
+
+for i in range(N):
+    if inside[i]:
+        M = M + 1
+
+# Step 5: Calculate Area
+F = (M / N) * A
+
+print("Total Points =", N)
+print("Inside Points =", M)
+print("Square Area =", A)
+print("Estimated Area =", round(F, 2), "cm2")
+
+# Step 6: Draw Graph
+plt.figure(figsize=(7, 7))
+
+plt.scatter(x[inside], y[inside], color="green", s=8)
+plt.scatter(x[~inside], y[~inside], color="red", s=8)
+
+# Draw Boundary
+xx = np.linspace(0, 9, 100)
+yy = 2 + 0.5*xx + 0.04*xx*xx
+
+plt.plot(xx, yy, color="blue")
+
+plt.xlim(0, 9)
+plt.ylim(0, 9)
+
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("Monte Carlo Method")
+
+plt.grid()
+plt.show()
+
+
+
+
+
+############### Head/tails
+
+
+import numpy as np
+
+# Step 1: Total Games
+N = 1000
+
+# Step 2: Initialize Variables
+total_flips = 0     #সব Game-এ মোট কতবার Toss হয়েছে
+total_return = 0    #মোট কত টাকা পুরস্কার পেয়েছি
+
+win = 0
+lose = 0
+
+# Step 3: Simulate Games
+for game in range(N):
+
+    heads = 0
+    tails = 0
+    flips = 0
+
+    while abs(heads - tails) < 3:
+
+        r = np.random.rand()
+
+        if r < 0.5:
+            heads = heads + 1
+        else:
+            tails = tails + 1
+
+        flips = flips + 1
+
+    # Step 4: Count Total Flips
+    total_flips = total_flips + flips
+
+    # Step 5: Calculate Win or Lose
+    if flips < 8:
+        total_return = total_return + 8
+        win = win + 1
+
+    elif flips > 8:
+        lose = lose + 1
+
+# Step 6: Calculate Cost and Profit
+total_cost = total_flips
+profit = total_return - total_cost
+
+average_flips = total_flips / N
+
+# Step 7: Display Result
+print("Total Games =", N)
+print("Total Flips =", total_flips)
+print("Total Cost =", total_cost, "Rs.")
+print("Total Return =", total_return, "Rs.")
+print("Winning Games =", win)
+print("Losing Games =", lose)
+print("Average Flips =", round(average_flips, 2))
+print("Total Profit/Loss =", profit, "Rs.")
+
+
+
+
+
+###################### Area of a Curve 
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Step 1: Rectangle Area
+A = 3 * 140
+
+# Step 2: Generate Random Points
+N = 1000
+
+x = 2 + np.random.rand(N) * 3
+y = np.random.rand(N) * 140
+
+# Step 3: Check Inside or Outside
+inside = y < x**3        #bolean akare value store korbe 
+
+# Step 4: Count Inside Points
+M = 0
+
+for i in range(N):
+    if inside[i]:
+        M = M + 1
+
+# Step 5: Calculate Integral
+I = (M / N) * A
+
+print("Total Points =", N)
+print("Inside Points =", M)
+print("Rectangle Area =", A)
+print("Estimated Integral =", round(I, 2))
+
+# Step 6: Draw Graph
+plt.figure(figsize=(7, 7))
+
+plt.scatter(x[inside], y[inside], color="green", s=8)
+plt.scatter(x[~inside], y[~inside], color="red", s=8)
+
+# Draw Boundary
+xx = np.linspace(2, 5, 100)
+yy = xx**3
+
+plt.plot(xx, yy, color="blue")
+
+plt.xlim(2, 5)
+plt.ylim(0, 140)
+
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("Monte Carlo Numerical Integration")
+
+plt.grid()
+plt.show()
+
+
+############################ Value of Pie 
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Step 1: Generate Random Points
+N = 1000
+
+x = np.random.rand(N)
+y = np.random.rand(N)
+
+# Step 2: Check Inside or Outside
+inside = x**2 + y**2 <= 1
+
+# Step 3: Count Inside Points
+M = 0
+
+for i in range(N):
+    if inside[i]:
+        M = M + 1
+
+# Step 4: Calculate Value of Pi
+pi = (4 * M) / N
+
+print("Total Points =", N)
+print("Inside Points =", M)
+print("Estimated Value of Pi =", round(pi, 4))
+
+# Step 5: Draw Graph
+plt.figure(figsize=(7, 7))
+
+plt.scatter(x[inside], y[inside], color="green", s=8)
+plt.scatter(x[~inside], y[~inside], color="red", s=8)
+
+# Draw Circle Boundary
+t = np.linspace(0, np.pi/2, 100) #0 = Starting Angle (0 Degree)
+                                 #np.pi/2 = Ending Angle (90 Degree)
+                                 #100 = মোট 100টি Angle তৈরি করবে।
+
+
+cx = np.cos(t)  #এখানে cos() প্রতিটি Angle-এর Cosine Value বের করবে।
+
+cy = np.sin(t)  #এখানে sin() প্রতিটি Angle-এর Sine Value বের করবে।
+
+plt.plot(cx, cy, color="blue")
+
+plt.xlim(0, 1)
+plt.ylim(0, 1)
+
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.title("Monte Carlo Method to Calculate Pi")
+
+plt.grid()
+plt.show()
+
+
+############### Random Walk:
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Step 1: Generate Random Numbers
+N = 50
+
+random = np.random.randint(0, 10, N)
+
+# Step 2: Starting Position
+x = 0
+y = 0
+
+# Store Positions
+X = [x]
+Y = [y]
+
+# Step 3: Check Direction and Move
+for i in range(N):
+
+    if random[i] <= 4:
+        y = y + 1
+
+    elif random[i] <= 7:
+        x = x - 1
+
+    else:
+        x = x + 1
+
+    X.append(x)
+    Y.append(y)
+
+# Step 4: Print Final Position
+print("Total Steps =", N)
+print("Final X Position =", x)
+print("Final Y Position =", y)
+print("Final Position =", (x, y))
+
+# Step 5: Draw Graph
+plt.figure(figsize=(7, 7))
+
+plt.plot(X, Y, marker="o", color="blue")
+
+plt.scatter(X[0], Y[0], color="green", s=100, label="Start")
+plt.scatter(X[-1], Y[-1], color="red", s=100, label="End")
+
+plt.xlabel("X Position")
+plt.ylabel("Y Position")
+plt.title("Random Walk Simulation")
+
+plt.legend()
+plt.grid()
+plt.show()
+
+
+
+################## 3 bearing Problem:
+
+
+import numpy as np
+
+# Step 1: Given Information
+N = 30000
+
+life = [1000, 1100, 1200, 1300, 1400,
+        1500, 1600, 1700, 1800, 1900]
+
+prob = [0.10, 0.14, 0.24, 0.14, 0.12,
+        0.10, 0.06, 0.05, 0.03, 0.02]
+
+delay = [4, 6, 8]
+delay_prob = [0.3, 0.6, 0.1]
+
+bearing_cost = 20
+downtime_cost = 5
+repairman_cost = 25
+
+np.random.seed(42)
+
+# Step 2: Existing Policy
+count1 = 0
+total_delay1 = 0
+
+for i in range(3):
+
+    clock = 0
+
+    while True:
+
+        bearing_life = np.random.choice(life, p=prob)
+
+        if clock + bearing_life > N:
+            break
+
+        clock = clock + bearing_life
+
+        repair_delay = np.random.choice(delay, p=delay_prob)
+
+        total_delay1 = total_delay1 + repair_delay
+
+        count1 = count1 + 1
+
+# Calculate Existing Policy Cost
+replace_time1 = count1 * 20
+
+downtime1 = total_delay1 + replace_time1
+
+cost1 = count1 * bearing_cost
+cost2 = downtime1 * downtime_cost
+cost3 = replace_time1 * repairman_cost / 60
+
+total_cost1 = cost1 + cost2 + cost3
+
+print("EXISTING POLICY")
+print("Bearing Replaced =", count1)
+print("Total Delay =", total_delay1)
+print("Total Downtime =", downtime1)
+print("Total Cost =", round(total_cost1, 2))
+
+
+# Step 3: Proposed Policy
+count2 = 0
+total_delay2 = 0
+
+clock = 0
+
+while True:
+
+    b1 = np.random.choice(life, p=prob)
+    b2 = np.random.choice(life, p=prob)
+    b3 = np.random.choice(life, p=prob)
+
+    first_failure = min(b1, b2, b3)
+
+    if clock + first_failure > N:
+        break
+
+    clock = clock + first_failure
+
+    repair_delay = np.random.choice(delay, p=delay_prob)
+
+    total_delay2 = total_delay2 + repair_delay
+
+    count2 = count2 + 1
+
+# Calculate Proposed Policy Cost
+total_bearings = count2 * 3
+
+replace_time2 = count2 * 40
+
+downtime2 = total_delay2 + replace_time2
+
+cost4 = total_bearings * bearing_cost
+cost5 = downtime2 * downtime_cost
+cost6 = replace_time2 * repairman_cost / 60
+
+total_cost2 = cost4 + cost5 + cost6
+
+print("\nPROPOSED POLICY")
+print("Replacement Events =", count2)
+print("Bearing Replaced =", total_bearings)
+print("Total Delay =", total_delay2)
+print("Total Downtime =", downtime2)
+print("Total Cost =", round(total_cost2, 2))
+
+
+# Step 4: Compare Both Policies
+print("\nCOST COMPARISON")
+
+print("Existing Policy Cost =", round(total_cost1, 2))
+print("Proposed Policy Cost =", round(total_cost2, 2))
+
+saving = total_cost1 - total_cost2
+
+print("Saving =", round(saving, 2))
+
+if saving > 0:
+    print("Proposed Policy is Better")
+else:
+    print("Existing Policy is Better")
+
+
+############### Bombers:
+
+import numpy as np
+
+# Step 1: Given Information
+N = 20
+
+sigma_x = 500
+sigma_y = 300
+
+# Target Area
+x_min = -500
+x_max = 500
+
+y_min = -300
+y_max = 300
+
+# Step 2: Generate Random Normal Numbers
+np.random.seed(10)
+
+Zx = np.random.normal(0, 1, N)
+Zy = np.random.normal(0, 1, N)
+
+# Step 3: Calculate X and Y Coordinates
+X = sigma_x * Zx
+Y = sigma_y * Zy
+
+# Step 4: Check Hit or Miss
+hits = 0
+misses = 0
+
+print("Bomb\tX\tY\tResult")
+
+for i in range(N):
+
+    if x_min <= X[i] <= x_max and y_min <= Y[i] <= y_max:
+        print(i + 1, "\t", round(X[i], 2), "\t", round(Y[i], 2), "\tHit")
+        hits = hits + 1
+
+    else:
+        print(i + 1, "\t", round(X[i], 2), "\t", round(Y[i], 2), "\tMiss")
+        misses = misses + 1
+
+# Step 5: Calculate Hit Percentage
+hit_percentage = (hits / N) * 100
+
+print("\nTotal Bombs =", N)
+print("Number of Hits =", hits)
+print("Number of Misses =", misses)
+print("Hit Percentage =", round(hit_percentage, 2), "%")
+
+
+
+################ Question dice:
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Set random seed
+np.random.seed(42)
+
+# Game settings
+cost_per_trial = 1
+target_difference = 20
+prize = 100  # Assumed prize; change if necessary
+
+# Monte Carlo simulation
+def play_game():
+
+    H = 0
+    T = 0
+    trials = 0
+
+    while abs(H - T) < target_difference:
+
+        # Roll a six-sided die
+        dice = np.random.randint(1, 7)
+
+        trials += 1
+
+        # Odd = H, Even = T
+        if dice % 2 == 1:
+            H += 1
+        else:
+            T += 1
+
+    # Find winner
+    if H > T:
+        winner = "H"
+    else:
+        winner = "T"
+
+    # Calculate cost and net profit
+    total_cost = trials * cost_per_trial
+    net_profit = prize - total_cost
+
+    return trials, H, T, winner, total_cost, net_profit
+
+
+# Repeat the game 1000 times
+games = 1000
+
+results = []
+
+for i in range(games):
+    results.append(play_game())
+
+# Convert results into NumPy array
+results = np.array(results, dtype=object)
+
+trials = results[:, 0].astype(int)
+costs = results[:, 4].astype(float)
+profits = results[:, 5].astype(float)
+
+# Display results
+print("GAMBLING GAME SIMULATION")
+print("------------------------")
+print("Total Games:", games)
+print("Average Trials:", np.mean(trials))
+print("Average Cost: $", np.mean(costs))
+print("Average Net Profit/Loss: $", np.mean(profits))
+
+print("H Wins:", np.sum(results[:, 3] == "H"))
+print("T Wins:", np.sum(results[:, 3] == "T"))
+
+print("Winning Probability of H:",
+      np.mean(results[:, 3] == "H"))
+
+# Visualization 1: Number of trials
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1)
+plt.hist(trials, bins=30, edgecolor="black")
+plt.title("Distribution of Game Duration")
+plt.xlabel("Number of Trials")
+plt.ylabel("Frequency")
+
+# Visualization 2: Profit and loss
+plt.subplot(1, 2, 2)
+plt.hist(profits, bins=30, edgecolor="black")
+plt.axvline(0, color="red", linestyle="--",
+            label="Break-even")
+plt.title("Profit and Loss Distribution")
+plt.xlabel("Net Profit / Loss ($)")
+plt.ylabel("Frequency")
+plt.legend()
+
+plt.tight_layout()
+plt.show()
+
+
+################ 4 sided flying walk:
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Number of epochs
+n = 50
+
+# Initial position
+x = 0
+y = 0
+z = 0
+
+# Store positions
+X = [x]
+Y = [y]
+
+# Simulate 50 movements
+for i in range(n):
+
+    # Horizontal movement
+    move = np.random.choice(
+        ['L', 'R', 'F', 'B'],
+        p=[0.25, 0.35, 0.30, 0.10]
+    )
+
+    if move == 'L':
+        x -= 1
+    elif move == 'R':
+        x += 1
+    elif move == 'F':
+        y += 1
+    else:
+        y -= 1
+
+    # Vertical movement
+    vertical = np.random.choice(
+        ['U', 'D'],
+        p=[0.80, 0.20]
+    )
+
+    if vertical == 'U':
+        z += 1
+    else:
+        z -= 1
+
+    # Store position
+    X.append(x)
+    Y.append(y)
+
+# Display final position
+print("Final X Position:", x)
+print("Final Y Position:", y)
+print("Final Z Position:", z)
+
+print("Final Location:", (x, y, z))
+
+# Draw 2D graph
+plt.figure(figsize=(8, 6))
+
+plt.plot(X, Y, marker='o', markersize=3)
+
+plt.scatter(0, 0, color='green', label='Starting Point')
+plt.scatter(x, y, color='red', label='Final Point')
+
+# Show four quadrants
+plt.axhline(0, color='black')
+plt.axvline(0, color='black')
+
+plt.xlabel("X Position")
+plt.ylabel("Y Position")
+plt.title("Flying Object Movement After 50 Epochs")
+
+plt.grid()
+plt.legend()
+plt.show()
+
+
+
+
+
+
+
+############################ 1. Check if mean is same or not:
+
+import numpy as np
+import matplotlib.pyplot as plt
+import simpy
+
+# Create SimPy environment
+env = simpy.Environment()
+
+# Generate two sets of 100 random numbers between 0 and 1
+numbers1 = np.random.uniform(0, 1, 100)
+numbers2 = np.random.uniform(0, 1, 100)
+
+# Calculate maximum, minimum, and mean
+max_num = np.max(numbers1)
+min_num = np.min(numbers1)
+
+mean1 = np.mean(numbers1)
+mean2 = np.mean(numbers2)
+
+std1 = np.std(numbers1)
+std2 = np.std(numbers2)
+
+# Display results
+print("First 100 Random Numbers:")
+print(numbers1)
+
+print("\nMaximum Number:", max_num)
+print("Minimum Number:", min_num)
+
+print("\nMean of First 100 Numbers:", mean1)
+print("Mean of Second 100 Numbers:", mean2)
+
+print("\nAre both means exactly equal?", mean1 == mean2)
+
+print("\nStandard Deviation of First 100 Numbers:", std1)
+print("Standard Deviation of Second 100 Numbers:", std2)
+print("Are both standard deviations exactly equal?", std1 == std2)
+
+# Visualization
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1)
+plt.hist(numbers1, bins=15, color="skyblue", edgecolor="black")
+plt.axvline(mean1, color="red", linestyle="--",
+            label=f"Mean = {mean1:.4f}")
+plt.title("First 100 Random Numbers")
+plt.xlabel("Random Number")
+plt.ylabel("Frequency")
+plt.legend()
+
+plt.subplot(1, 2, 2)
+plt.hist(numbers2, bins=15, color="lightgreen", edgecolor="black")
+plt.axvline(mean2, color="red", linestyle="--",
+            label=f"Mean = {mean2:.4f}")
+plt.title("Second 100 Random Numbers")
+plt.xlabel("Random Number")
+plt.ylabel("Frequency")
+plt.legend()
+
+plt.tight_layout()
+plt.show()
+
+
+
+################## Random Seed:
+
+import numpy as np
+import matplotlib.pyplot as plt
+import simpy
+
+# Create SimPy environment
+env = simpy.Environment()
+
+# Set the same random seed
+np.random.seed(42)
+numbers1 = np.random.uniform(0, 1, 100)
+
+# Reset the same seed
+np.random.seed(42)
+numbers2 = np.random.uniform(0, 1, 100)
+
+# Calculate mean, maximum, and minimum
+mean1 = np.mean(numbers1)
+mean2 = np.mean(numbers2)
+
+print("First Set of Random Numbers:")
+print(numbers1)
+
+print("\nSecond Set of Random Numbers:")
+print(numbers2)
+
+print("\nMean of First Set:", mean1)
+print("Mean of Second Set:", mean2)
+
+print("\nMaximum:", np.max(numbers1))
+print("Minimum:", np.min(numbers1))
+
+print("\nAre both arrays identical?",
+      np.array_equal(numbers1, numbers2))
+
+print("Are both means equal?", mean1 == mean2)
+
+# Visualization
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1)
+plt.plot(numbers1, color="blue", label="First Set")
+plt.title("First Set (Seed = 42)")
+plt.xlabel("Index")
+plt.ylabel("Random Number")
+plt.legend()
+
+plt.subplot(1, 2, 2)
+plt.plot(numbers2, color="orange", label="Second Set")
+plt.title("Second Set (Seed = 42)")
+plt.xlabel("Index")
+plt.ylabel("Random Number")
+plt.legend()
+
+plt.tight_layout()
+plt.show()
+
+
+
+############# 100 and 10000
+
+import numpy as np
+import matplotlib.pyplot as plt
+import simpy
+
+# Create SimPy environment
+env = simpy.Environment()
+
+# Generate 100 random numbers
+numbers100 = np.random.uniform(0, 1, 100)
+
+# Generate 10,000 random numbers
+numbers10000 = np.random.uniform(0, 1, 10000)
+
+# Calculate statistics
+mean100 = np.mean(numbers100)
+mean10000 = np.mean(numbers10000)
+
+max100 = np.max(numbers100)
+min100 = np.min(numbers100)
+
+max10000 = np.max(numbers10000)
+min10000 = np.min(numbers10000)
+
+# Display results
+print("Statistics for 100 Random Numbers")
+print("Mean:", mean100)
+print("Maximum:", max100)
+print("Minimum:", min100)
+
+print("\nStatistics for 10,000 Random Numbers")
+print("Mean:", mean10000)
+print("Maximum:", max10000)
+print("Minimum:", min10000)
+
+print("\nTheoretical Mean = 1")
+
+print("Error for 100 Numbers:", abs(mean100 - 1))
+print("Error for 10,000 Numbers:", abs(mean10000 - 1))
+
+# Visualization
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1)
+plt.hist(numbers100, bins=20, color="skyblue",
+         edgecolor="black", density=True)
+plt.axvline(mean100, color="red", linestyle="--",
+            label=f"Mean = {mean100:.4f}")
+plt.title("Distribution of 100 Random Numbers")
+plt.xlabel("Random Number")
+plt.ylabel("Density")
+plt.legend()
+
+plt.subplot(1, 2, 2)
+plt.hist(numbers10000, bins=20, color="lightgreen",
+         edgecolor="black", density=True)
+plt.axvline(mean10000, color="red", linestyle="--",
+            label=f"Mean = {mean10000:.4f}")
+plt.title("Distribution of 10,000 Random Numbers")
+plt.xlabel("Random Number")
+plt.ylabel("Density")
+plt.legend()
+
+plt.tight_layout()
+plt.show()
+
+
+
+########## Customer:
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Set random seed for reproducible results
+np.random.seed(42)
+
+# Number of customers
+n = 1000
+
+# Generate 1000 inter-arrival times
+# Exponential distribution with mean = 5 minutes
+inter_arrival_times = np.random.exponential(scale=5, size=n)
+
+# Generate 1000 service times
+# Uniform distribution between 2 and 8 minutes
+service_times = np.random.uniform(low=2, high=8, size=n)
+
+# Calculate sample statistics
+arrival_mean = np.mean(inter_arrival_times)
+arrival_std = np.std(inter_arrival_times, ddof=1)
+
+service_mean = np.mean(service_times)
+service_std = np.std(service_times, ddof=1)
+
+# Calculate theoretical statistics
+theoretical_arrival_mean = 5
+theoretical_arrival_std = 5
+
+theoretical_service_mean = (2 + 8) / 2
+theoretical_service_std = np.sqrt((8 - 2)**2 / 12)
+
+# Print comparison
+print("INTER-ARRIVAL TIME (Exponential Distribution)")
+print(f"Sample Mean: {arrival_mean:.4f} minutes")
+print(f"Theoretical Mean: {theoretical_arrival_mean:.4f} minutes")
+print(f"Sample Standard Deviation: {arrival_std:.4f} minutes")
+print(f"Theoretical Standard Deviation: {theoretical_arrival_std:.4f} minutes")
+
+print("\nSERVICE TIME (Uniform Distribution)")
+print(f"Sample Mean: {service_mean:.4f} minutes")
+print(f"Theoretical Mean: {theoretical_service_mean:.4f} minutes")
+print(f"Sample Standard Deviation: {service_std:.4f} minutes")
+print(f"Theoretical Standard Deviation: {theoretical_service_std:.4f} minutes")
+
+# Plot both histograms
+plt.figure(figsize=(12, 5))
+
+# Inter-arrival time histogram
+plt.subplot(1, 2, 1)
+plt.hist(inter_arrival_times, bins=30, color="skyblue",
+         edgecolor="black")
+plt.title("Inter-Arrival Times (Exponential)")
+plt.xlabel("Time (minutes)")
+plt.ylabel("Frequency")
+
+# Service time histogram
+plt.subplot(1, 2, 2)
+plt.hist(service_times, bins=30, color="lightgreen",
+         edgecolor="black")
+plt.title("Service Times (Uniform)")
+plt.xlabel("Time (minutes)")
+plt.ylabel("Frequency")
+
+plt.tight_layout()
+plt.show()
+
+
+############### QUestion prev:
+
+import simpy
+import numpy as np
+
+# Input parameters
+mean_interarrival = 5
+mean_service = 4
+max_customers = 1000
+
+# Set random seed
+np.random.seed(42)
+
+# Create SimPy environment
+env = simpy.Environment()
+
+# Create a single server
+server = simpy.Resource(env, capacity=1)
+
+# Store simulation statistics
+waiting_times = []
+total_service_time = 0
+
+# Customer process
+def customer(env, customer_id, server):
+
+    global total_service_time
+
+    # Record customer arrival time
+    arrival_time = env.now
+
+    # Request the server (FIFO)
+    with server.request() as request:
+
+        yield request
+
+        # Record service start time
+        service_start = env.now
+
+        # Calculate waiting time
+        waiting_time = service_start - arrival_time
+        waiting_times.append(waiting_time)
+
+        # Generate service time
+        service_time = np.random.exponential(
+            mean_service
+        )
+
+        total_service_time += service_time
+
+        # Serve customer
+        yield env.timeout(service_time)
+
+
+# Customer arrival process
+def customer_generator(env, server):
+
+    for i in range(max_customers):
+
+        # Generate inter-arrival time
+        interarrival_time = np.random.exponential(
+            mean_interarrival
+        )
+
+        # Wait for next arrival
+        yield env.timeout(interarrival_time)
+
+        # Create new customer
+        env.process(customer(env, i, server))
+
+
+# Start customer generator
+env.process(customer_generator(env, server))
+
+# Run simulation
+env.run()
+
+# Simulation ending time
+simulation_end_time = env.now
+
+# Calculate average delay
+average_delay = np.mean(waiting_times)
+
+# Calculate average number in queue
+average_queue = sum(waiting_times) / simulation_end_time
+
+# Calculate server utilization
+server_utilization = (
+    total_service_time / simulation_end_time
+) * 100
+
+# Theoretical arrival and service rates
+arrival_rate = 1 / mean_interarrival
+service_rate = 1 / mean_service
+
+print("M/M/1 QUEUE SIMULATION")
+print("---------------------")
+
+print("Total Customers:", max_customers)
+
+print("Average Delay in Queue:",
+      round(average_delay, 4), "minutes")
+
+print("Average Number in Queue:",
+      round(average_queue, 4))
+
+print("Server Utilization:",
+      round(server_utilization, 2), "%")
+
+print("Simulation Ending Time:",
+      round(simulation_end_time, 4), "minutes")
+
+print("Arrival Rate:", arrival_rate)
+print("Service Rate:", service_rate) 
